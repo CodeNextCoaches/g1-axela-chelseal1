@@ -1,8 +1,8 @@
 (function () {
 
-  var input,
-      submit,
-      message,
+  var input = document.getElementById("iris-input"),
+      submit = document.getElementById("iris-submit"),
+      message = document.getElementById("iris-message"),
       validInputs = [
         "Where do you live?",
         "What are you?",
@@ -16,9 +16,13 @@
         "42. Duh.",
         "What do you call a swindler going down some stairs? <br>Condescending. Ha!"];
 
+        var string = validInputs[4];
+        console.log(string);
+
+        var index = validInputs.indexOf(string);
   // Add event listeners to text input and submit button below
-
-
+    input.addEventListener("keypress", checkKey);
+    submit.addEventListener("click", processInput);
   // This function checks if the user has pressed "ENTER" on their keyboard.
   function checkKey(event) {
     var keyCode = event.which || event.keyCode;
@@ -26,20 +30,27 @@
       processInput();
     }
   }
+   // * This function does the following (in order):
+   // * -Set a new variable, "currentInput", to the text in the text area.
+   // * -Clear the text area.
+   // * -If currentInput is NOT contained in the array of validInputs, set
+   // *  the innerHTML of the message element to something like "Sorry, I don't
+   // *  understand you."
+   // * -Otherwise, set the innerHTML of the message element to the valid
+   // *  response. Hint: Each response has the same index as its valid input.
+   // *  So if the user enters "What is the meaning of life" (index 3 in the
+   // *  validInputs array), the response would be "42. Duh" (index 3 in the
+   // *  responses array).
+   function processInput(){
 
-  /*
-   * processInput()
-   * This function does the following (in order):
-   * -Set a new variable, "currentInput", to the text in the text area.
-   * -Clear the text area.
-   * -If currentInput is NOT contained in the array of validInputs, set
-   *  the innerHTML of the message element to something like "Sorry, I don't
-   *  understand you."
-   * -Otherwise, set the innerHTML of the message element to the valid
-   *  response. Hint: Each response has the same index as its valid input.
-   *  So if the user enters "What is the meaning of life" (index 3 in the
-   *  validInputs array), the response would be "42. Duh" (index 3 in the
-   *  responses array).
-   */
+   var currentInput = input.value; 
+   console.log(currentInput);  
+   input.value = ' ';
 
+   if(validInputs.indexOf(currentInput) === -1){
+      message.innerHTML = "Sorry, I don't understand you.";
+   } else{
+         message.innerHTML = responses[validInputs.indexOf(currentInput)];
+      }
+    }     
 })();
